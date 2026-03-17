@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ProjektRekrutacja.ViewModels;
+using ProjektRekrutacja.Models;
+using System.Linq;
+using System.Windows;
 
 namespace ProjektRekrutacja.View
 {
@@ -22,7 +26,14 @@ namespace ProjektRekrutacja.View
     {
         public MainWindow()
         {
+            
             InitializeComponent();
+            DataContext = new MainViewModel();
+            using (var context = new AppDbContext())
+            {
+                var count = context.Database.SqlQuery<int>("SELECT COUNT(*) FROM sys.tables").FirstOrDefault();
+                MessageBox.Show("Połączono! Liczba tabel: " + count);
+            }
         }
     }
 }
