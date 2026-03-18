@@ -16,13 +16,15 @@
             <DataGrid ItemsSource="{Binding Products}"
           AutoGenerateColumns="False"
           Margin="0,10,0,0"
-          Height="250">
+          Height="250"
+          ColumnWidth="*">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nazwa" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="Cena" Binding="{Binding Price}" />
                     <DataGridTextColumn Header="Stan" Binding="{Binding Quantity}" />
                     <DataGridTextColumn Header="Jednostka" Binding="{Binding Unit}" />
+                    <DataGridTextColumn Header="Kod kreskowy" Binding="{Binding Barcode}" />
                 </DataGrid.Columns>
 
             </DataGrid>

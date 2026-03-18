@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -74,8 +75,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\AppDbContext.cs" />
+    <Compile Include="Models\Asortyment.cs" />
+    <Compile Include="Models\JednostkaMiary.cs" />
+    <Compile Include="Models\JednostkaMiaryAsortymentu.cs" />
+    <Compile Include="Models\KodyKreskowe.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="VewModels\MainVindowModel.cs" />
+    <Compile Include="Models\StanyMagazynowe.cs" />
+    <Compile Include="ViewModels\MainWindowModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

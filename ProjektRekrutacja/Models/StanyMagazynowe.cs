@@ -4,18 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjektRekrutacja.Models
 {
-    public class Product
+    [Table("StanyMagazynowe", Schema = "ModelDanychContainer")]
+    public class  StanMagazynowy
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }      
-        public decimal Price { get; set; }    
-        public decimal Quantity { get; set; } 
-        public string Unit { get; set; }      
-        public string Barcode { get; set; }
-        
+        public decimal? IloscDostepna { get; set; }
+        public int Asortyment_Id { get; set; }
     }
 }
