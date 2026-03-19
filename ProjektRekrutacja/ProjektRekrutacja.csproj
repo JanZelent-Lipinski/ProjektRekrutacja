@@ -74,6 +74,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\Asortyment.cs" />
     <Compile Include="Models\JednostkaMiary.cs" />
@@ -81,7 +82,8 @@
     <Compile Include="Models\KodyKreskowe.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\StanyMagazynowe.cs" />
-    <Compile Include="ViewModels\MainWindowModel.cs" />
+    <Compile Include="Models\Waluty.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

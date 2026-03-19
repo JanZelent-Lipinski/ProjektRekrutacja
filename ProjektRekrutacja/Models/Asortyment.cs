@@ -15,5 +15,6 @@ namespace ProjektRekrutacja.Models
         public int Id { get; set; }
         public string Nazwa { get; set; }
         public decimal? CenaEwidencyjna { get; set; }
+        public Guid? WalutaCenyEwidencyjnej_Id { get; set; }
     }
 }

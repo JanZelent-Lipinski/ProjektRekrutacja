@@ -16,6 +16,7 @@ namespace ProjektRekrutacja.Models
         public decimal Quantity { get; set; } 
         public string Unit { get; set; }      
         public string Barcode { get; set; }
-        
+        public string Currency { get; set; }
+
     }
 }

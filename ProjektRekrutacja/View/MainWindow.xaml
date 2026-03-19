@@ -5,37 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjektRekrutacja"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <StackPanel Margin="10">
+        Title="MainWindow" Height="700" Width="1000">
 
-            <TextBox Width="300"
-             Height="30"
-             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <DataGrid ItemsSource="{Binding Products}"
-          AutoGenerateColumns="False"
-          Margin="0,10,0,0"
-          Height="250"
-          ColumnWidth="*">
+        <Grid Grid.Row="0" Margin="0,0,0,10" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nazwa" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Cena" Binding="{Binding Price}" />
-                    <DataGridTextColumn Header="Stan" Binding="{Binding Quantity}" />
-                    <DataGridTextColumn Header="Jednostka" Binding="{Binding Unit}" />
-                    <DataGridTextColumn Header="Kod kreskowy" Binding="{Binding Barcode}" />
-                </DataGrid.Columns>
+            <TextBlock Text="Szukaj:"
+                       VerticalAlignment="Center"
+                       Margin="0,0,10,0"
+                       FontWeight="Bold"/>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"
+                         Height="25"
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Grid.Column="1"
+                        Content="X"
+                        Margin="2,0,0,0"
+                        Command="{Binding ClearSearchCommand}"/>
+            </Grid>
+        </Grid>
 
-            </DataGrid>
-
-            <TextBlock Margin="0,10,0,0"
-               FontSize="16"
-               Text="{Binding SearchText}" />
-
-        </StackPanel>
-
-
-
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Products}"
+                  AutoGenerateColumns="False"
+                  ColumnWidth="*">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nazwa" Binding="{Binding Name}" Width="2*"/>
+                <DataGridTextColumn Header="Cena" Binding="{Binding Price}"/>
+                <DataGridTextColumn Width="70" Header="Waluta" Binding="{Binding Currency}" />
+                <DataGridTextColumn Header="Stan Magazynowy" Binding="{Binding Quantity}"/>
+                <DataGridTextColumn Header="Jednostka" Binding="{Binding Unit}"/>
+                <DataGridTextColumn Header="Kod kreskowy" Binding="{Binding Barcode}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

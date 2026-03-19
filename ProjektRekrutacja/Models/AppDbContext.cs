@@ -14,6 +14,7 @@ namespace ProjektRekrutacja.Models
         public DbSet<JednostkaMiary> JednostkiMiar { get; set; }
         public DbSet<JednostkaMiaryAsortymentu> JednostkiMiarAsortymentow { get; set; }
         public DbSet<KodyKreskowe> KodyKreskowe { get; set; }
+        public DbSet<Waluta> Waluty { get; set; }
 
     }
 }
