@@ -51,59 +51,13 @@ namespace ProjektRekrutacja.ViewModels
         #endregion
 
         #region Methods
-
-
         public void LoadProducts()
         {
             using (var context = new AppDbContext())
             {
-                var productsList = context.Asortymenty
+                context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
 
-                    
-                    .Where(asortyment =>
-                        string.IsNullOrEmpty(SearchText) ||
-
-                        
-                        asortyment.Nazwa.Contains(SearchText) ||
-
-                        
-                        context.KodyKreskowe.Any(kodKreskowy =>
-                            kodKreskowy.JednostkaMiaryAsortymentu_Id == asortyment.Id &&
-                            kodKreskowy.Kod.Contains(SearchText)
-                        )
-                    )
-
-
-                    .Select(asortyment => new Product
-                    {
-                        Name = asortyment.Nazwa,
-
-                        Price = asortyment.CenaEwidencyjna ?? 0,
-
-                        Currency = context.Waluty
-                            .Where(waluta => waluta.Id == asortyment.WalutaCenyEwidencyjnej_Id)
-                            .Select(waluta => waluta.Symbol)
-                            .FirstOrDefault(),
-
-                        Quantity = context.StanyMagazynowe
-                            .Where(stanMagazynowy => stanMagazynowy.Asortyment_Id == asortyment.Id)
-                            .Sum(stanMagazynowy => (decimal?)stanMagazynowy.IloscDostepna) ?? 0,
-
-                        Unit = context.JednostkiMiarAsortymentow
-                            .Where(jednostkaPowiazanie => jednostkaPowiazanie.Asortyment_Id == asortyment.Id)
-                            .Join(context.JednostkiMiar,
-                                jednostkaPowiazanie => jednostkaPowiazanie.JednostkaMiary_Id,
-                                jednostka => jednostka.Id,
-                                (jednostkaPowiazanie, jednostka) => jednostka.Nazwa)
-                            .FirstOrDefault(),
-
-                        Barcode = context.KodyKreskowe
-                            .Where(kodKreskowy => kodKreskowy.JednostkaMiaryAsortymentu_Id == asortyment.Id)
-                            .Select(kodKreskowy => kodKreskowy.Kod)
-                            .FirstOrDefault()
-                    })
-
-                    .ToList();
+                var productsList = BuildQuery(context).ToList();
 
                 Products.Clear();
 
@@ -112,6 +66,47 @@ namespace ProjektRekrutacja.ViewModels
                     Products.Add(product);
                 }
             }
+        }
+
+
+        private IQueryable<Product> BuildQuery(AppDbContext context)
+        {
+            return
+                from asortyment in context.Asortymenty
+
+                where string.IsNullOrEmpty(SearchText)
+                   || asortyment.Nazwa.Contains(SearchText)
+                   || context.KodyKreskowe.Any(k =>
+                        k.JednostkaMiaryAsortymentu_Id == asortyment.Id &&
+                        k.Kod.Contains(SearchText))
+
+                join waluta in context.Waluty
+                    on asortyment.WalutaCenyEwidencyjnej_Id equals waluta.Id into walutyJoin
+                from waluta in walutyJoin.DefaultIfEmpty()
+
+                join stan in context.StanyMagazynowe
+                    on asortyment.Id equals stan.Asortyment_Id into stanyJoin
+
+                join jma in context.JednostkiMiarAsortymentow
+                    on asortyment.Id equals jma.Asortyment_Id into jmaJoin
+                from jma in jmaJoin.DefaultIfEmpty()
+
+                join jednostka in context.JednostkiMiar
+                    on jma.JednostkaMiary_Id equals jednostka.Id into jednostkiJoin
+                from jednostka in jednostkiJoin.DefaultIfEmpty()
+
+                join kod in context.KodyKreskowe
+                    on asortyment.Id equals kod.JednostkaMiaryAsortymentu_Id into kodyJoin
+
+                select new Product
+                {
+                    Name = asortyment.Nazwa,
+                    Price = asortyment.CenaEwidencyjna ?? 0,
+                    Currency = waluta != null ? waluta.Symbol : null,
+                    Quantity = stanyJoin.Sum(s => (decimal?)s.IloscDostepna) ?? 0,
+                    Unit = jednostka.Nazwa,
+                    Barcode = kodyJoin.Select(k => k.Kod).FirstOrDefault()
+                };
         }
 
         #endregion
