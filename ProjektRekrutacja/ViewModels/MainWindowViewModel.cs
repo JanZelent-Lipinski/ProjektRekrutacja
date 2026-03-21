@@ -55,7 +55,7 @@ namespace ProjektRekrutacja.ViewModels
         {
             using (var context = new AppDbContext())
             {
-                context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+                
 
                 var productsList = BuildQuery(context).ToList();
 
