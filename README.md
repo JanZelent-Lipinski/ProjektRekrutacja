@@ -4,7 +4,7 @@
 
 Aplikacja desktopowa napisana w technologii WPF (.NET Framework 4.8) z wykorzystaniem wzorca MVVM oraz Entity Framework 6.
 
-Celem aplikacji jest połączenie z bazą danych systemu magazynowo-handlowego i umożliwienie wyszukiwania produktów na podstawie fragmentu nazwy lub kodu kreskowego. Wyniki prezentowane są w formie tabeli zawierającej podstawowe informacje o towarach.
+Celem aplikacji jest połączenie z bazą danych systemu magazynowo-handlowego (Subiekt Nexo) i umożliwienie wyszukiwania produktów na podstawie fragmentu nazwy lub kodu kreskowego. Wyniki prezentowane są w formie tabeli zawierającej podstawowe informacje o towarach.
 
 ## Funkcjonalności
 
